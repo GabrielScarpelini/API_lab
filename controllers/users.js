@@ -129,6 +129,7 @@ router.post("/users", async (req, res) => {
     const type_name = dados.user_type_id;
     console.log(dados);
 
+    // Verificando tipo de usuario
     const cod_type = await db.user_type.findOne({
         attributes: ['cod_type'],
         where: { type_name }
