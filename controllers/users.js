@@ -35,7 +35,7 @@ router.get("/users", async (req, res) => {
         return res.status(400).json({
             mensagem: "Nenhum ususário cadastrado"
         
-    });
+    })
     }
 
     //console.log((page * limit) - limit)
@@ -50,7 +50,7 @@ router.get("/users", async (req, res) => {
         // Calcular a partir de qual registro deve retornar e o limite de resgistros
         offset: Number((page * limit) - limit),
         limit: limit
-    });
+    })
     // Acessar o IF se encontrar o registro no banco de dados
     if(users){
         // Criar objeto com as informações para paginação
@@ -73,14 +73,14 @@ router.get("/users", async (req, res) => {
         users,
         pagination
         
-    });
+    })
 
     } else {
         // Pausar o processamento e retornar mensagem de erro
         return res.status(400).json({
         mensagem: "Nenhum ususário cadastrado"
         
-    });
+    })
     }
 })
 
@@ -105,13 +105,13 @@ if(user){
     // Pausar o processamento e retornar os dados
     return res.json({
         user: user.dataValues
-        });
+        })
 } else {
     // Pausar o processamento e retornar a mensagem de error
     return res.status(400).json({
     mensagem: "Erro: Usuário não cadastrado!!!!"
 
-    });
+    })
 }
 
 
@@ -119,30 +119,39 @@ if(user){
     return res.json({
     mensagem: "Nenhum ususário cadastrado"
      
-    });
-});
+    })
+})
 
 // Criar a rota de cadastrar
 router.post("/users", async (req, res) => {
-// Receber os dados enviado no corpo da requisição
-var dados = req.body;
-console.log(dados);
+    // Receber os dados enviado no corpo da requisição
+    const dados = req.body;
+    const type_name = dados.user_type_id;
+    console.log(dados);
 
-// Salvar banco de dados
-await db.users.create(dados).then((dadosUsuarios) => {
-    // Pausar o processamento e retornar os dados em formato de objeto
-    return res.json({
-        mensagem: "Usuário cadastrado com sucesso!",
-        dadosUsuarios
+    const cod_type = await db.user_type.findOne({
+        attributes: ['cod_type'],
+        where: { type_name }
     });
-}).catch(() => {
-    // Pausar o processamento e retornar a mensagem de error
-    return res.json({
-        mensagem: "Erro: Usuário não cadastrado!",
-        dadosUsuarios
-    });
-}); 
-});
+    
+    console.log(cod_type.dataValues.cod_type);
+    dados.user_type_id = Number(cod_type.dataValues.cod_type);
+
+    // Salvar banco de dados
+    await db.users.create(dados).then((dadosUsuarios) => {
+        // Pausar o processamento e retornar os dados em formato de objeto
+        return res.json({
+            mensagem: "Usuário cadastrado com sucesso!",
+            dadosUsuarios
+        });
+    }).catch(() => {
+        // Pausar o processamento e retornar a mensagem de error
+        return res.json({
+            mensagem: "Erro: Usuário não cadastrado!",
+            dadosUsuarios
+        })
+    })
+})
 
 
 router.put("/users", async (req, res) => {
@@ -163,9 +172,6 @@ router.put("/users", async (req, res) => {
         })
     })
 
-    // return res.status(400).json({
-    //     mensagem: "Erro: Não será possivel editar, usuário não cadastrado!"
-    // })
 })
 
 // Criar a rota apagar e receber o parâmetro id enviado na URL
@@ -188,9 +194,9 @@ router.delete("/users/:id", async (req, res) => {
         // Pausar processamento e retorna a mensagem
         return res.status(400).json({
             mensagem: "Erro: não foi possível excluir usuário!"
-        });
-    });
-});
+        })
+    })
+})
 
 // Exportar a instrução que está dentro da constante router
 module.exports = router;
