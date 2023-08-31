@@ -1,0 +1,49 @@
+<!-- esse html se for em JS -->
+<!-- <!DOCTYPE html> -->
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>cadastro de Usuário</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+  <section class="container">
+    <h1>Cadastro de Usuário</h1>
+    <form action="/" id="formulario" method="POST">
+      <label for="name">Nome</label>
+      <input type="text" id="name" name="name">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email">
+      <label for="studant">É aluno</label>
+      <input type="checkbox" id="studant" name="studant">
+      <label for="cnpf">CNPJ/CPF</label>
+      <input type="text" id="cnpf" name="cnpf">
+      <label for="tel">Telefone</label>
+      <input type="text" id="tel" name="tel">
+      <button type="submit">Enviar</button>
+    </form>
+
+    <div id="resultado"></div>
+  </section>
+
+  <script src="./js/main.js"></script>
+</body>
+
+</html>
+
+<!-- {
+  "name": "Gabriel",
+  "email": "gabriel.spavia@gmail.com",
+  "user_type_id": "1",
+  "password": "123456",
+  "is_active": "1",
+  "cpf_cnpj": "51804500000117",
+  "terms": "1",
+  "birthday": "17/09/1998",
+  "phone": "48999999999"    
+} -->
