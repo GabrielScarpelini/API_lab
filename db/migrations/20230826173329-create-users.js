@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       password: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       is_active: {
         type: Sequelize.INTEGER

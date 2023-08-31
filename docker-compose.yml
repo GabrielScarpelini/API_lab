@@ -1,0 +1,20 @@
+version: "3"
+
+services: 
+  api: 
+    build: .
+    command: npm start
+    links:
+      - dba
+    volumes:
+      - .:/data/
+    ports: 
+      - "3000:3000"
+  dba:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: mudar123
+    volumes:
+      - ./scripts:/docker-entrypoint-init
+    ports:
+      - "5000:5000"

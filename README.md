@@ -2,9 +2,17 @@
 
 
 ## COMO RODAR O PROJETO, APÓS BAIXAR
-Projeto pode rodar com node app.js ou nodemon app.js.
+
 instalar todas as dependencias pelo package.json
 `npm install`
+
+## Executar uma migrate.
+Criar tabela, basta apenas executar as migrations
+`npx sequelize-cli db:migrate`
+
+
+## Executar as seeders
+`npx sequelize-cli db:seed:all`
 
 ## Criar o arquivo package
 criar package.json
@@ -28,15 +36,12 @@ Alterar as credenciais do banco de dados no arquivo ".env" e manipular variaveis
 ## Criar database
 `npx sequelize-cli db:create`
 
-## Criar Tabelas
+## Criar arquivo das Tabelas na pasta migrate
 Criar tabelas banco de dados utilizando migrate
 `npx sequelize-cli migration:generate --name create-users`
 
+`npx sequelize-cli migration:generate --name create-user_types`
 
-
-## Executar uma migrate.
-Criar tabela, basta apenas executar as migrations
-`npx sequelize-cli db:migrate`
 
 ## Desfazer uma migrate
 `npx sequelize-cli db:migrate:undo`
@@ -44,13 +49,13 @@ Criar tabela, basta apenas executar as migrations
 
 
 ## Criar a Models usuários
-`npx sequelize-cli model:generate --name users --attributes name:string,email:string,user_type_id:INTEGER,password:INTEGER,is_active:INTEGER,cpf_cnpj:string,phone:string`
+`npx sequelize-cli model:generate --name users --attributes name:string,email:string,user_type_id:INTEGER,password:STRING,is_active:INTEGER,cpf_cnpj:string,phone:string`
 
 
 
 ## Criar seeders
 criar para inserir valores na tabela users
-`npx sequelize seed:generate --name users`
+`npx sequelize seed:generate --name user_types`
 
 ## Seeders
 Executar as seeders 
@@ -72,7 +77,3 @@ configurações e arquivos de migreação para banco de dados
 ## Iniciar sequelize 
 Iniciar o Sequelize-cli e criar o arquivo config
 `npx sequelize-cli init`
-
-## Migrations
-Executar as migrations
-`npx sequelize-cli db:migrate`

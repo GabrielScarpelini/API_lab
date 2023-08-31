@@ -122,13 +122,15 @@ if(user){
     })
 })
 
+const bcrypt = require("bcrypt")
+
 // Criar a rota de cadastrar
 router.post("/users", async (req, res) => {
     // Receber os dados enviado no corpo da requisição
     const dados = req.body;
     const type_name = dados.user_type_id;
     console.log(dados);
-
+    
     // Verificando tipo de usuario
     const cod_type = await db.user_type.findOne({
         attributes: ['cod_type'],
@@ -138,13 +140,18 @@ router.post("/users", async (req, res) => {
     console.log(cod_type.dataValues.cod_type);
     dados.user_type_id = Number(cod_type.dataValues.cod_type);
 
+    const senhaEncriptada = await bcrypt.hash(dados.password, 10);
+    dados.password = senhaEncriptada;
+
     // Salvar banco de dados
     await db.users.create(dados).then((dadosUsuarios) => {
+        console.log(dados)
         // Pausar o processamento e retornar os dados em formato de objeto
         return res.json({
             mensagem: "Usuário cadastrado com sucesso!",
             dadosUsuarios
         });
+
     }).catch(() => {
         // Pausar o processamento e retornar a mensagem de error
         return res.json({
