@@ -10,6 +10,12 @@ services:
       - .:/data/
     ports: 
       - "3000:3000"
+    command: >
+    sleep 300
+      && npx sequelize-cli db:create
+      && npx sequelize-cli db:migrate
+      && npx sequelize-cli db:seed:all
+      && npm start
   dba:
     image: mysql:5.7
     environment:

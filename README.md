@@ -77,3 +77,6 @@ configurações e arquivos de migreação para banco de dados
 ## Iniciar sequelize 
 Iniciar o Sequelize-cli e criar o arquivo config
 `npx sequelize-cli init`
+
+## docker host
+#DB_HOST=172.17.0.2 # Local do banco de dados

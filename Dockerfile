@@ -7,5 +7,5 @@ RUN npm install --save sequelize
 
 COPY . .
 EXPOSE 3000
-CMD ["npm", "start"]
+
 
